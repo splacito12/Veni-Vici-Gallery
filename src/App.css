@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+    --galleryBG: #f1ece2;
+    --galleryText: #2b2722;
+    --galleryLabels: #9c7a3c;
+    --tagBorders: #c9b386;
+    --bannedTags: #973f2d;
+    --border: #d9d0bd;
+    --galleryArt: #fffdf8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--galleryBG);
+    color: var(--galleryText);
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+.gallery {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "header header" "main banlist";
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+}
+
+@media (max-width: 760px) {
+    .gallery {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "main" "banlist";
+    }
+}
+
+.gallery__header {
+    grid-area: header;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+}
+
+.gallery__subtext {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--galleryLabels);
+    margin-bottom: 0.6rem;
+}
+
+.gallery__title {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 3.2rem;
+    margin: 0;
+    letter-spacing: -0.01em;
+    color: black;
+}
+
+.gallery__subtitle {
+    margin: 0.6rem auto 0;
+    max-width: 30rem;
+    color: #5c5650;
+    font-size: 0.95rem;
+    font-family: "Fraunces", serif;
+}
+
+.gallery__main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.8rem;
+}
+
+.placard { 
+    width: 100%; 
+    max-width: 560px; 
+    background: var(--galleryArt); 
+    border: 1px solid var(--border); 
+    box-shadow: 0 1px 0 var(--border), 0 14px 30px -20px rgba(43, 39, 34, 0.35); 
+    padding: 1.6rem; 
+    min-height: 420px; 
+    display: flex; 
+    flex-direction: column; 
+    font-family: "Fraunces", serif;
+}
+
+.placard--empty, 
+.placard--error { 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    color: #847c70; 
+    font-style: italic; 
+    font-family: "Fraunces", serif;
+}
+
+.placard--error { 
+    color: var(--bannedTags); 
+    font-style: normal; 
+    font-family: "Fraunces", serif;
+}
+
+.placard__loading { 
+    font-family: "Fraunces", serif; 
+}
+
+.placard__frame { 
+    border: 6px solid var(--galleryText); 
+    padding: 4px; 
+    background: var(--galleryText); 
+    margin-bottom: 1.2rem; 
+}
+
+.placard__image { 
+    display: block; 
+    width: 100%; 
+    max-height: 360px; 
+    object-fit: contain; 
+    background: #111; 
+}
+
+.placard__noimage { 
+    padding: 4rem 1rem; 
+    text-align: center; 
+    color: #ccc; 
+    background: #222; 
+}
+
+.placard__title { 
+    font-family: "Fraunces", serif; 
+    font-size: 1.5rem; 
+    margin: 0 0 0.2rem;
+    color: black;
+}
+
+.placard__meta { 
+    margin: 0 0 1rem; 
+    color: #6b6459; 
+    font-size: 0.88rem; 
+}
+
+.placard__tags { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 0.6rem; 
+    margin-top: auto; 
+}
+
+.tag { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    border: 1px solid var(--tagBorders); 
+    background: #fbf7ee; 
+    padding: 0.45rem 0.7rem; 
+    cursor: pointer; 
+    font-family: inherit; 
+    text-align: left; 
+    transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease; 
+}
+
+.tag:hover:not(.tag--disabled) { 
+    border-color: var(--galleryLabels); 
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px -4px rgba(43, 39, 34, 0.35); 
+}
+
+.tag__label { 
+    font-size: 0.62rem; 
+    letter-spacing: 0.08em; 
+    text-transform: uppercase; 
+    color: var(--galleryLabels); 
+}
+
+.tag__value { 
+    font-size: 0.85rem; 
+    color: var(--galleryText); 
+}
+
+.tag--banned { 
+    background: #f7e9e6; 
+    border-color: var(--bannedTags); 
+}
+
+.tag--banned .tag__label, 
+.tag--banned .tag__value { 
+    color: var(--bannedTags); 
+    text-decoration: line-through; 
+}
+
+.tag--disabled { 
+    cursor: default; 
+    opacity: 0.5; 
+}
+
+.discover-btn { 
+    font-family: "Fraunces", serif; 
+    font-size: 1.05rem; 
+    letter-spacing: 0.02em; 
+    background: var(--galleryText); 
+    color: var(--galleryBG); 
+    border: none; 
+    padding: 0.85rem 2.4rem; 
+    cursor: pointer; 
+    transition: background 0.15s ease; 
+}
+
+.discover-btn:hover:not(:disabled) { 
+    background: var(--galleryLabels); 
+}
+
+.discover-btn:disabled { 
+    opacity: 0.6; 
+    cursor: wait; 
+}
+
+.banList { 
+    grid-area: banlist; 
+    border-left: 1px solid var(--border); 
+    padding-left: 1.5rem; 
+}
+
+@media (max-width: 760px) { 
+    .banlist { 
+        border-left: none; 
+        border-top: 1px solid var(--border); 
+        padding-left: 0; 
+        padding-top: 1.5rem; 
+    } 
+}
+
+.banList__title { 
+    font-family: "Fraunces", serif; 
+    font-size: 1.1rem; 
+    margin: 0 0 0.8rem; 
+    color: black;
+}
+
+.banList__empty { 
+    font-size: 0.85rem; 
+    color: #8a8276; 
+    font-style: italic;
+    font-family: "Fraunces", serif;  
+}
+
+.banList__group { 
+    margin-bottom: 1.1rem; 
+}
+
+.banList__group-label { 
+    display: block; 
+    font-size: 0.65rem; 
+    letter-spacing: 0.1em; 
+    text-transform: uppercase; 
+    color: var(--galleryLabels); 
+    margin-bottom: 0.4rem; 
+    font-family: "Fraunces", serif; 
+}
+
+.banList__chips { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 0.4rem; 
+}
+
+.chip { 
+    font-size: 0.78rem; 
+    background: var(--bannedTags); 
+    color: #fff; 
+    border: none; 
+    padding: 0.3rem 0.6rem; 
+    cursor: pointer; 
+    font-family: "Fraunces", serif; 
+}
+
+.chip:hover { 
+    background: #7e3325; 
+}
